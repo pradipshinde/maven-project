@@ -24,9 +24,16 @@ pipeline{
 			}
 		}
 
-		stage('Deploy'){
+		stage('Deploy to staging'){
 			steps{
-				echo "Deployed..."
+				echo "Deployment Started"
+				Build job: "deploy-to-staging-pipeline"
+			}
+
+			post{
+				success{
+					echo "war file successfully deployed on staging server"
+				}
 			}
 		}
 
