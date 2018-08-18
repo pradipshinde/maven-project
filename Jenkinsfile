@@ -27,7 +27,7 @@ pipeline{
 		stage('Deploy to staging'){
 			steps{
 				echo "Deployment Started"
-				Build job: "deploy-to-staging-pipeline"
+				build job: "deploy-to-staging-pipeline"
 			}
 
 			post{
