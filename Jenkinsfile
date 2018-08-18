@@ -26,7 +26,7 @@ pipeline{
 
 		stage('Deploy to staging'){
 			steps{
-				echo "Deployment Started"
+				echo "Deployment Started for staging server"
 				build job: "deploy-to-staging-pipeline"
 			}
 
@@ -36,6 +36,30 @@ pipeline{
 				}
 			}
 		}
+
+
+		stage('Deploy to production'){
+			steps{
+				timeout(time:5,unit:'DAYS'){
+					input message:"Approve producton deployment ?",submitter:'admin'
+				}
+
+				echo "Deployment Started for production server"
+
+				build job: "deploy-to-production-pipeline"
+			}
+
+			post{
+				success{
+					echo "war file successfully deployed on production server"
+				}
+
+				failure{
+					echo "Deployment failed"
+				}
+			}
+		}
+
 
         stage('Example') {
             steps {
