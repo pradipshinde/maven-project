@@ -13,6 +13,12 @@ pipeline{
 		stage('Build'){
 			steps{
 				echo "Building..."
+				bat "mvn clean package"	
+			}
+
+			post{
+				echo "Now Archiving.."
+				archiveArtifacts artifacts: "**/target/*.war"
 			}
 		}
 
